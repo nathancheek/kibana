@@ -1,0 +1,20 @@
+Backport PR #8646
+---------
+
+**Commit 1:**
+Fix label on scripted field date histograms
+
+Now that we support Painless scripted fields users can create scripted
+date fields, and thus scripted date histograms. The label making method
+for the date histogram agg was getting the field name in a way that was
+incompatible with scripted fields, so I've added some fallback code for
+that scenario. I looked through the rest of the makeLabel methods on all
+the other aggs and they all correctly access the field displayName
+already so this should only need fixed for date histograms.
+
+Now with more lodash for safer access
+
+Fixes elastic#8632
+
+* Original sha: fc635bcf2f110f251eb789c13a2dcddcf1f4e986
+* Authored by Matthew Bargar <mbargar@gmail.com> on 2016-10-12T22:30:15Z
